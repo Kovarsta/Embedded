@@ -1,6 +1,6 @@
 from machine import Pin, I2C
 import time
-from math import sin
+from math import sin, cos, tan
 import ssd1306
 
 # Initialize I2C (GPIO22 = SCL, GPIO21 = SDA on ESP32)
@@ -19,12 +19,19 @@ offset = 32
 t = 0          
 
 while True:
+    t = time.ticks_ms()*0.005
     oled.fill(0)  # clear screen each frame
 
     for x in range(0, 128):
-        y = int(amplify * sin(0.1 * x + time.ticks_ms()*0.005) + offset)
+        y = int(amplify * sin(0.1 * x + t) + offset)
+        y2 = int(amplify * cos(0.1 * x/2*5 + t) + offset)
+        y3 = int(amplify * tan(0.1 * x + t) + offset)
         if 0 <= y < 64:   # keep it in display bounds (assuming 128x64 OLED)
             oled.pixel(x, y, 1)
+            oled.pixel(y2, x, 1)
+            oled.pixel(y2+64, x, 1)
+            oled.pixel(y2+32, x, 1)
+            oled.pixel(x, y3, 1)
 
     oled.show()
     time.sleep(0.03)

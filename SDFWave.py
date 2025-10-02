@@ -2,6 +2,7 @@ from machine import Pin, I2C
 import time
 from math import sin, sqrt
 import ssd1306
+import gc
 
 # Initialize I2C (GPIO22 = SCL, GPIO21 = SDA on ESP32)
 i2c = I2C(0, scl=Pin(22), sda=Pin(21))
@@ -23,10 +24,10 @@ def length(x1, y1, x2, y2):
 
 
 def sdfCircle(x, y, cx, cy, radius):
-    # This is the distance from the pixel to the center, minus the radius.
-    # Result > 0: point is OUTSIDE the circle.
-    # Result = 0: point is ON the circle edge.
-    # Result < 0: point is INSIDE the circle.
+    # this is the distance from the pixel to the center, minus the radius
+    # result > 0: point is OUTSIDE the circle
+    # result = 0: point is ON the circle edge
+    # result < 0: point is INSIDE the circle
     return length(x, y, cx, cy) - radius
 
 while True:
@@ -43,7 +44,7 @@ while True:
             # using wave produces a weird perspective ripple, but it works, the rest of the code is still bugged though
             if abs(wave) < 0.5:
                 oled.pixel(x, y, 1)
-
+    oled.text(f"Allocated RAM: {gc.memory_alloc()}", 0, 0)
     oled.show()
     time.sleep(0.03)
 
