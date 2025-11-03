@@ -11,6 +11,6 @@ while True:
         led.duty(duty)
         sleep(.005)
         
-     for duty in range(1023, -1):
+    for duty in range(1023, -1):
         led.duty(duty)
         sleep(.005)   
