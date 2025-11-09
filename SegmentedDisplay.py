@@ -1,6 +1,10 @@
 from machine import Pin
 import time
 
+"""
+The center Pins, from both side, is connected to GND, connect it with a resistor
+"""
+
 pin_map = {
     'g': Pin(19, Pin.OUT),
     'f': Pin(18, Pin.OUT),

@@ -2,7 +2,7 @@ from machine import Pin, I2C
 from i2c_lcd import I2cLcd
 from time import sleep
 
-# Must be 5v
+# 3v, Pin layout, with the connectors on the right side is GND, VCC, SDA, SCL 
 
 I2C_ADDR = 0x27 
 i2c = I2C(0, sda=Pin(27), scl=Pin(26), freq=400000)
