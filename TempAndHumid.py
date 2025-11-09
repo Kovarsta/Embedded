@@ -1,13 +1,17 @@
 from machine import Pin
 import dht
 from time import sleep
-
+"""
+Pin layout is 
+If 3 Pins: SIG (S), VCC (+), GND (-)
+If 4 Pins: VCC (+), SIG (S), NULL, GND(-)
+"""
 DHT_PIN = 22
 sensor = dht.DHT11(Pin(DHT_PIN))
 
 while True:
     try:
-        # 1. Measure the data (this initiates the communication)
+        # 1. Measure the data
         sensor.measure()
         
         # 2. Read temperature in Celsius and humidity
